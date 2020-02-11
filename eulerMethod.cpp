@@ -31,7 +31,7 @@ int main ()
     float y = 1; //ending interval
     float temp;
     ofstream myfile;
-    myfile.open ("example.txt");
+    myfile.open ("example.xls");
     myfile << "\n x-values\t  y-values\n";
     while(xInitial < y){
         temp = h1*diffEquation(xInitial,yInitial);
@@ -41,7 +41,7 @@ int main ()
         //y = y + h1*diffEquation(xInitial,y);
         //xInitial = xInitial + h1;
 
-        myfile << yInitial << endl;// "          " << yInitial << endl;
+        myfile << xInitial <<  "\t" << yInitial << endl;
     }
     myfile.close();
 
