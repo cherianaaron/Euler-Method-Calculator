@@ -12,6 +12,10 @@ Equation:
 
 dy/dx = y*e^(-x^2)
 
+Algorithm:
+
+y(n+1) = y(n) + (h * f(x(n), y(n)))
+
 @author Aaron Cherian
 @date Friday Feb 7th, 2020
 */
@@ -23,27 +27,34 @@ float diffEquation(float x, float y)
 
 int main ()
 {
-    float xInitial = 0;
-    float yInitial = 1;
-    float h1 = 0.001;
-    float h2 = 0.0001;
-    float x = 0; //starting interval
-    float y = 1; //ending interval
-    float temp;
-    ofstream myfile;
-    myfile.open ("example.xls");
-    myfile << "\n x-values\t  y-values\n";
-    while(xInitial < y){
-        temp = h1*diffEquation(xInitial,yInitial);
-        yInitial = yInitial + temp;
-        xInitial = xInitial + h1;
-        //temp = y;
-        //y = y + h1*diffEquation(xInitial,y);
-        //xInitial = xInitial + h1;
+    /*Initial values*/
+    float xInitial = 0; //initial x value
+    float yInitial = 1; //initial y value
+    float h1 = 0.001; //step size 1
+    float h2 = 0.0001; //step size 2
+    float endX = 1; //ending interval
+    float temp; //dummy variable to store f(x,y)*h
 
-        myfile << xInitial <<  "\t" << yInitial << endl;
+    ofstream myfile;
+    myfile.open ("Euler_Data.xls"); //opens a file to add graph data in
+    myfile << "\n x-values\t  y-values\n"; //axis labels
+
+    float newX = xInitial;
+    float newY = yInitial;
+
+    while(newX <= endX){ //while X is in interval [0,1]
+        temp = h1*diffEquation(newX,newY); //temp = f(x,y)*h
+        newY = newY + temp; //y1 = y0 + temp
+        newX = newX + h1; //x1 = x0 + h
+
+        //After above lines x0 = x1, and y0 = y1. Then the values
+        //printed below to a file. This step is looped till end of
+        //interval.
+
+        myfile << newX <<  "\t" << newY << endl; //(x1,y1)....(x2,y2)...(xn,yn)
     }
-    myfile.close();
+    cout << "Your data has been outputted to Euler-Data.xls" << endl;
+    myfile.close(); //closes and saves data
 
 }
 
